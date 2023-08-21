@@ -32,20 +32,21 @@ object Utils {
         for (i in 1..42) {
             if (i <= dayOfWeek) {
                 val day = previousMonthLastDay - dayOfWeek + i
-                daysInMonthArray.add(CalendarItemViews.CalendarDate(day.toString(), "#808080"))
+                daysInMonthArray.add(CalendarItemViews.CalendarDate(day.toString(), "#808080",null))
                 addedPreviousMonthDates++
             } else if (i > daysInMonth + dayOfWeek) {
                 if ((daysInMonth + dayOfWeek) <= 35 && i >= 36) {
                     break
                 }
                 val day = nextMonthFirstDay + addedCurrentMonthDates
-                daysInMonthArray.add(CalendarItemViews.CalendarDate(day.toString(), "#808080"))
+                daysInMonthArray.add(CalendarItemViews.CalendarDate(day.toString(), "#808080",null))
                 addedCurrentMonthDates++
             } else {
                 daysInMonthArray.add(
                     CalendarItemViews.CalendarDate(
                         (i - dayOfWeek).toString(),
-                        "#FF000000"
+                        "#FF000000",
+                        date.withDayOfMonth(i-dayOfWeek)
                     )
                 )
             }

@@ -11,6 +11,7 @@ import com.example.calenderapplicationfrnd.view.callback.CalendarItemClickListen
 import com.example.calenderapplicationfrnd.R
 import com.example.calenderapplicationfrnd.databinding.CalendarCellBinding
 import com.example.calenderapplicationfrnd.utils.debouncedOnClick
+import java.time.LocalDate
 
 
 class CalendarAdapter(
@@ -74,5 +75,5 @@ class CalendarAdapter(
 }
 
 sealed class CalendarItemViews() {
-    data class CalendarDate(val title: String, val color: String) : CalendarItemViews()
+    data class CalendarDate(val title: String, val color: String, val localDate: LocalDate? = null) : CalendarItemViews()
 }

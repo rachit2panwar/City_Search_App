@@ -125,7 +125,7 @@ class CalendarMainActivity : ComponentActivity(), CalendarItemClickListener, Tas
                 is Result.Success -> {
                     response.data?.let { it ->
                         if (it.status == "Success") {
-                            Toast.makeText(this, "Task Stored Successfully", Toast.LENGTH_LONG)
+                            Toast.makeText(this, "Task Stored Successfully, Please refresh", Toast.LENGTH_LONG)
                                 .show()
                         } else {
                             Toast.makeText(this, "Error! Please try again", Toast.LENGTH_SHORT)
@@ -222,10 +222,13 @@ class CalendarMainActivity : ComponentActivity(), CalendarItemClickListener, Tas
     }
 
     override fun onCalendarItemClicked(item: CalendarItemViews.CalendarDate) {
-        if (item.title != "") {
-            selectedDate?.let { showTaskInputDialog(it) }
-                ?: Toast.makeText(this, "Selected Date is null", Toast.LENGTH_SHORT)
-        }
+        item.localDate?.let {
+            if (item.title != "") {
+                selectedDate = item.localDate
+                selectedDate?.let { showTaskInputDialog(it) }
+                    ?: Toast.makeText(this, "Selected Date is null", Toast.LENGTH_SHORT).show()
+            }
+        } ?: Toast.makeText(this, "Go to month view to Add this task", Toast.LENGTH_LONG).show()
     }
 
     // I had 2 cases either I could have passed position here, but that can cause issue if 2 elements are deleted simulaneously then position will be messed.
