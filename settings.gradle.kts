@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Calender Application FRND"
+rootProject.name = "City Search App"
 include(":app")
  

@@ -5,33 +5,32 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.citySearchApplication.databinding.ActivityCalenderMainBinding
-import com.example.citySearchApplication.service.repository.CalendarRepository
+import com.example.citySearchApplication.databinding.ActivityCitySearchMainBinding
+import com.example.citySearchApplication.service.repository.CitySearchRepository
 import com.example.citySearchApplication.utils.Result
-import com.example.citySearchApplication.view.adapter.TaskAdapter
+import com.example.citySearchApplication.view.adapter.CityListAdapter
 import com.example.citySearchApplication.viewmodel.CitySearchActivityViewModel
-import com.example.citySearchApplication.viewmodel.CalendarViewModelProviderFactory
+import com.example.citySearchApplication.viewmodel.CitySearchViewModelProviderFactory
 
 
 class CitySearchMainActivity : ComponentActivity() {
 
     private lateinit var viewModel: CitySearchActivityViewModel
-    private lateinit var taskAdapter: TaskAdapter
+    private lateinit var taskAdapter: CityListAdapter
 
-    private val binding: ActivityCalenderMainBinding by lazy {
-        ActivityCalenderMainBinding.inflate(LayoutInflater.from(this))
+    private val binding: ActivityCitySearchMainBinding by lazy {
+        ActivityCitySearchMainBinding.inflate(LayoutInflater.from(this))
     }
-
-    private var taskRecyclerView: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        val repository = CalendarRepository()
-        val provider = CalendarViewModelProviderFactory(repository)
+        val repository = CitySearchRepository()
+        val provider = CitySearchViewModelProviderFactory(repository)
         viewModel = ViewModelProvider(this, provider).get(CitySearchActivityViewModel::class.java)
         setTaskAdapter()
         observeData()
@@ -65,6 +64,7 @@ class CitySearchMainActivity : ComponentActivity() {
                 is Result.Error -> {
                     hideProgressBar()
                     response.message?.let { message ->
+                        Toast.makeText(this@CitySearchMainActivity, "API error occured + ${message}", Toast.LENGTH_LONG).show()
                         Log.d("An error occured: ", message)
                     }
                 }
@@ -79,15 +79,17 @@ class CitySearchMainActivity : ComponentActivity() {
     }
 
     private fun hideProgressBar() {
+        binding.loading.isVisible = false
     }
 
     private fun showProgressBar() {
+        binding.loading.isVisible = true
     }
 
     private fun setTaskAdapter() {
-        taskAdapter = TaskAdapter()
-        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(applicationContext)
-        taskRecyclerView?.layoutManager = layoutManager
-        taskRecyclerView?.adapter = taskAdapter
+        taskAdapter = CityListAdapter()
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
+        binding.cityListRecyclerView.layoutManager = layoutManager
+        binding.cityListRecyclerView.adapter = taskAdapter
     }
 }

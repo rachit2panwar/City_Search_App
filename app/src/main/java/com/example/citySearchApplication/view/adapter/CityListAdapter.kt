@@ -10,7 +10,7 @@ import com.example.citySearchApplication.R
 import com.example.citySearchApplication.databinding.ItemCityListBinding
 
 
-class TaskAdapter : androidx.recyclerview.widget.ListAdapter<CityItemViews,RecyclerView.ViewHolder>(DIFF_UTIl) {
+class CityListAdapter() : androidx.recyclerview.widget.ListAdapter<CityItemViews,RecyclerView.ViewHolder>(DIFF_UTIl) {
 
     private fun getListItem(pos: Int) = if (itemCount > 0 && pos in 0 until itemCount) getItem(pos) else null
 
