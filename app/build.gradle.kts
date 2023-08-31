@@ -11,11 +11,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.calenderapplicationfrnd"
+    namespace = "com.example.citySearchApplication"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.calenderapplicationfrnd"
+        applicationId = "com.example.citySearchApplication"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
@@ -37,11 +37,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_18
-        targetCompatibility = JavaVersion.VERSION_18
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "18"
+        jvmTarget = "11"
     }
     buildFeatures {
         viewBinding = true
@@ -49,11 +49,11 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
+//    packaging {
+//        resources {
+//            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+//        }
+//    }
 }
 
 dependencies {
@@ -61,6 +61,8 @@ dependencies {
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
     testImplementation("org.mockito:mockito-inline:3.11.2")
@@ -95,4 +97,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.6.0")
     implementation("com.squareup.retrofit2:converter-gson:2.6.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.5.0")
+
+    implementation("com.google.dagger:dagger:2.28.3")
+    kapt("com.google.dagger:dagger-compiler:2.28.3")
 }
